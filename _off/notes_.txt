@@ -1,0 +1,20 @@
+- Django:
+
+
+######################################################
+
+        - O que é e o que faz?
+        - Sintaxe;
+        - parâmetros;
+        - seu retorno;
+        - comportamento;
+        - Em que situações utilizá-la(o);
+        - exemplo;
+            - Explicação linha por linha e item por item da cada uma delas.
+        - métodos úteis;
+        - Link para a documentação oficial onde trata do assunto;
+        - Mencione outras informações que sejam relevantes de forma concisa.
+    - Exemplo envolvendo todos os conceitos trazidos aqui.
+        - Explicação linha por linha e item por item da cada uma delas.
+
+######################################################
