@@ -1,20 +1,28 @@
-- Django:
 
 
 ######################################################
 
+        - Em que contexto é utilizado(a)?
         - O que é e o que faz?
         - Sintaxe;
         - parâmetros;
+        - Como configurá-los?
+            - Mencione todos os arquivos que são envolvidos nesse assunto.
         - seu retorno;
         - comportamento;
         - Em que situações utilizá-la(o);
         - exemplo;
             - Explicação linha por linha e item por item da cada uma delas.
-        - métodos úteis;
+        - métodos úteis, se aplicáveis;
         - Link para a documentação oficial onde trata do assunto;
         - Mencione outras informações que sejam relevantes de forma concisa.
-    - Exemplo envolvendo todos os conceitos trazidos aqui.
+    - Exemplo completo envolvendo todos os conceitos trazidos nessa resposta.
         - Explicação linha por linha e item por item da cada uma delas.
 
 ######################################################
+
+- Explique como o trecho de código a seguir foi construído utilizando os conceitos
+trazidos na resposta anterior.
+    - Copile o código na explicação.
+    - Explique envolvendo todos os conceitos abordados na resposta gerada anteriormente.
+        - Explique linha por linha e item por item do código fornecido.
