@@ -1,4 +1,6 @@
 from django.db import models
+from utils.model_validators import validate_img
+from utils.images import resize_image
 
 # Create your models here.
 
@@ -15,9 +17,33 @@ class SiteSetup(models.Model):
     show_description = models.BooleanField(default=True)
     show_pagination = models.BooleanField(default=True)
     show_footer = models.BooleanField(default=True)
+    favicon = models.ImageField(
+    upload_to= 'assets/faicon/%Y/%m/',
+    blank=True,
+    default='',
+    validators=[validate_img],
+    )
+
+    def save(self, *args, **kwargs):
+        current_favicon_name = str(self.favicon.name) # Estamos pegando o nome (caminho do arquivo)
+        # antres de salvar o novo arquivo que vai sobrescrever o arquivo que está no bd (se já
+        # tiver sido salvo algo antes).
+
+        # Estamos trazendo o método save original para dentro do nosso método
+        # pois estamos sobrescrevendo-o.
+        super().save(*args, **kwargs) # Aqui estamos salvado o que foi passado de informação nova
+        # pelo forms desse nosso model.
+        favicon_changed = False
+
+        if self.favicon:
+            favicon_changed = current_favicon_name != self.favicon.name
+        
+        if favicon_changed:
+            resize_image(self.favicon, 32)
 
     def __str__(self):
         return self.title
+
 
 class MenuLink(models.Model):
     class Meta:
@@ -34,6 +60,7 @@ class MenuLink(models.Model):
         blank= True,
         default = None
         )
+
 
     def __str__(self):
         return self.text
