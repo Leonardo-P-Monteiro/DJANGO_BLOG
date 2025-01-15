@@ -34,7 +34,8 @@ Django:
             - Explicação linha por linha e item por item da cada uma delas.
         - métodos úteis, se aplicáveis;
         - Link para a documentação oficial onde trata do assunto;
-        - Mencione outras informações que sejam relevantes de forma concisa.
+        - Mencione outras informações que sejam relevantes de forma concisa;
+        - Pontos chaves sobre o assunto;
     - Exemplo completo envolvendo todos os conceitos trazidos nessa resposta.
         - Explicação linha por linha e item por item da cada uma delas.
 

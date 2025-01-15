@@ -20,11 +20,11 @@ class SiteSetupAdmin(admin.ModelAdmin):
     # Where the fields will be boolean fields you don't need write it on the
     # lists. Because for default it will be shown on the admin display - even 
     # you don't want. This is on the "list_display".
-    list_display = 'title', 'descritpiton', 'show_header', 'show_search', \
+    list_display = 'title', 'description', 'show_header', 'show_search', \
     'show_menu', 'show_description', 'show_pagination', 'show_footer'
-    list_display_links = 'title', 'descritpiton', 'show_header', 'show_search', \
+    list_display_links = 'title', 'description', 'show_header', 'show_search', \
     'show_menu', 'show_description', 'show_pagination', 'show_footer'
-    search_fields = 'title', 'descritpiton', 'show_header', 'show_search', \
+    search_fields = 'title', 'description', 'show_header', 'show_search', \
     'show_menu', 'show_description', 'show_pagination', 'show_footer'
     inlines = MenuLinkInLine,
 

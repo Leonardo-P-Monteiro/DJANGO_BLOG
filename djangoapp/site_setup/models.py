@@ -10,7 +10,7 @@ class SiteSetup(models.Model):
         verbose_name_plural = 'Setup'
     
     title = models.CharField(max_length=65)
-    descritpiton = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
     show_header = models.BooleanField(default=True)
     show_search = models.BooleanField(default=True)
     show_menu = models.BooleanField(default=True)
