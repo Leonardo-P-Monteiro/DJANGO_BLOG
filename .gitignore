@@ -5,6 +5,7 @@
 gunicorn-error-log
 __localcode
 /data/
+tempCodeRunnerFile.py
 
 # Django #
 *.log

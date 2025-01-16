@@ -1,5 +1,5 @@
 Django:
-    - ValidationError;
+    - Slugs no Django:
         - Introdução sobre o assunto.
         - Em que contexto é utilizado(a)?
         - O que é e o que faz?
