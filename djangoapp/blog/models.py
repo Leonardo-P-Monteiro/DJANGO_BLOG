@@ -1,6 +1,8 @@
 from django.db import models
 from utils.rands import slugify_new
+from utils.images import resize_image
 from django.contrib.auth.models import User
+from django_summernote.models import AbstractAttachment
 
 # Create your models here.
 
@@ -89,10 +91,51 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
 
+        # This is the slug field config.
         if not self.slug:
             self.slug = slugify_new(self.title, k=4)
 
-        return super().save(*args, *kwargs)
-    
+        # Here is the formatting of cover file.
+        current_cover_name = str(self.cover.name)
+        cover_changed = False
+
+        super_save = super().save(*args, **kwargs) # Aqui estamos salvado o que 
+        # foi passado de informação nova pelo forms desse nosso model.
+
+        if self.cover:
+            cover_changed = current_cover_name != self.cover.name
+        
+        if cover_changed:
+            resize_image(self.cover, 900)
+
+        return super_save
+
     def __str__(self) -> str:
         return self.title
+
+class PostAttachment(AbstractAttachment):
+    
+
+    def save(self, *args, **kwargs):
+        
+        # This two lines below were brought across the copy of code excerpt of
+        # the AbstractAttechment. We gone at the models Summernote to take this
+        # excerpt. 
+        if not self.name:
+            self.name = self.file.name
+        
+        #This code snippet below was made by us.
+        #Here is the formatting of file.
+        current_file_name = str(self.file.name)
+        file_changed = False
+
+        super_save = super().save(*args, **kwargs) # Aqui estamos salvado o que 
+        # foi passado de informação nova pelo forms desse nosso model.
+
+        if self.file:
+            file_changed = current_file_name != self.file.name
+        
+        if file_changed:
+            resize_image(self.file, 900)
+
+        return super_save
