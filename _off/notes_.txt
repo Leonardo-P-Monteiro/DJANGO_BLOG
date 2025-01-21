@@ -1,5 +1,14 @@
+get_absolute_url
+
+Como criar novos campos no admin. - Definindo métodos no admin.ModelAdmin
+função mark_safe
+função reverse - conferir se já há flash card.
+
+
+######################################################
+
 Django:
-    - ModelAdmin.save_model:
+    - função get_absolute_url:
         - Introdução sobre o assunto.
         - Em que contexto é utilizado(a)?
         - O que é e o que faz?

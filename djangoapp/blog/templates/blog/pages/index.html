@@ -5,11 +5,21 @@
     <div class="section-content-wide">
       <div class="section-gap">
 
-        <div class="card-grid">
-          {% for i in ""|ljust:"9" %}
-            {% include 'blog/partials/_post-card.html' with i=forloop.counter0 %}
-          {% endfor %}
-        </div>
+        {% if page_obj %}
+          <div class="card-grid">
+            {% for post in page_obj %}
+              {% include 'blog/partials/_post-card.html' with i=forloop.counter0 %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class='not-found center'>
+            <h1>Nada foi encontrado.🥲</h1>
+            <p>
+              Por favor, clique em outro link do nosso blog ou vá para a 
+              página <a href='{% url "blog:index" %}' >home</a>.
+            </p>
+          </div>
+        {% endif %}
 
       </div>
     </div>

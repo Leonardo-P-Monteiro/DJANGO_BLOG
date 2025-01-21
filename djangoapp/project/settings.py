@@ -75,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # This is my context processors.
                 'site_setup.context_processors.site_setup',
             ],
         },
@@ -147,6 +148,8 @@ MEDIA_ROOT = DATA_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# Conf. of Summernote.
 SUMMERNOTE_CONFIG = {
     'summernote': {
         # Toolbar customization

@@ -3,6 +3,7 @@ from utils.rands import slugify_new
 from utils.images import resize_image
 from django.contrib.auth.models import User
 from django_summernote.models import AbstractAttachment
+from django.urls import reverse
 
 # Create your models here.
 
@@ -52,7 +53,7 @@ class Page(models.Model):
                                        need to be marked for the page will be \
                                        shown." )
     content = models.TextField(default=None, null=True,)
-
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify_new(self.title, k=4)
@@ -61,10 +62,21 @@ class Page(models.Model):
     def __str__(self) -> str:
         return self.title
 
+# This is my custom object manager. It will suit to customize my consults on
+# data base. It avoids that i write repeated code.
+class PostManager(models.Manager):
+    
+    def get_publish(self):
+        return self.filter(is_publish = True)\
+        .get('-id')
+
 class Post(models.Model):
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+    
+    #My custom object manager.
+    objects = PostManager()
     
     title = models.CharField(max_length=65,)
     slug = models.SlugField(max_length=255, unique=True, default='', null=True,
@@ -88,6 +100,13 @@ class Post(models.Model):
     category = models.ForeignKey(Category, models.SET_NULL, null=True,
                                  blank=True, default=None,)
     tags = models.ManyToManyField(Tag, blank=True, default='',)
+
+    def get_absolute_url(self):
+        
+        if not self.is_published:
+            return reverse('blog:index')
+        
+        return reverse('blog:post', args =(self.slug,))
 
     def save(self, *args, **kwargs):
 
