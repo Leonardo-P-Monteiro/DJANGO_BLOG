@@ -66,9 +66,9 @@ class Page(models.Model):
 # data base. It avoids that i write repeated code.
 class PostManager(models.Manager):
     
-    def get_publish(self):
+    def get_published(self):
         return self.filter(is_publish = True)\
-        .get('-id')
+        .get('-pk')
 
 class Post(models.Model):
     class Meta:
@@ -155,6 +155,6 @@ class PostAttachment(AbstractAttachment):
             file_changed = current_file_name != self.file.name
         
         if file_changed:
-            resize_image(self.file, 900)
+            resize_image(self.file, 900, True, 70)
 
         return super_save

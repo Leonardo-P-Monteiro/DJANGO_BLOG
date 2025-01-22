@@ -4,9 +4,12 @@
 <main class="main-content single-post section-wrapper">
   <div class="single-post-content section-content-narrow">
     <div class="single-post-gap section-gap">
-      <div class="single-post-cover pb-base">
-        <img loading="lazy" src="https://picsum.photos/1920/1080/?rand=12" alt="Change me">
-      </div>
+
+      {% if post.cover %}
+        <div class="single-post-cover pb-base">
+          <img loading="lazy" src="https://picsum.photos/1920/1080/?rand=12" alt="Change me">
+        </div>
+      {% endif %}
 
       <h2 class="single-post-title pb-base center">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

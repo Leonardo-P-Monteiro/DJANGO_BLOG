@@ -38,7 +38,7 @@ class PageAdmin(SummernoteModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
-    summernote_fields = 'content',
+    summernote_fields = ('content',)
     list_display = 'id', 'title', 'is_published', 'created_by',
     list_display_links = 'title',
     search_fields = 'id', 'title', 'slug', 'content',
