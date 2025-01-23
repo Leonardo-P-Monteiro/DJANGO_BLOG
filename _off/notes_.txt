@@ -51,3 +51,27 @@ trazidos na resposta anterior.
     - Copile o código na explicação.
     - Explique envolvendo todos os conceitos abordados na resposta gerada anteriormente.
         - Explique linha por linha e item por item do código fornecido.
+
+
+################################################################################
+COMANDOS A DEIXAR SALVOS NA MEMÓRIA DO GITBASH 
+
+nano ~/.bash_history - Para atualizar a lista de comandos salvos na memória por padrão
+########## COMANDOS UTILITÁRIOS ##########
+code nome_do_arquivo.extesão > Abre um arquivo no VSCode
+cat arquivo.txt > Mostra o conteúdo de um arquivo
+history > Mostra o histórico de comandos
+nano meu_arquivo.txt > Abre arquivo no terminal
+########## COMANDOS GIT ##########
+git log  > Lista de logs do git completo.
+git log --oneline > Lista de logs do git resumida.
+git branch > visualizar as branchs 
+git branch nome_branch > cria nova branch
+git checkout nome_branch > Mudar de branch
+git merge nome_branch > Fundir branch que estamos com a branch indicada no comando.
+git branch -d nome_branch --> Se houve arquivos a serem comitados ele não permite ser deletado.
+git branch -D nome_branch --> Nesse aqui ele vai deletar à força, ainda que haja arquivos a serem comitados.
+########## COMANDOS DOCKER ##########
+docker-compose logs -f djangoapp
+docker-compose exec djangoapp python manager.py makemigrations
+docker-compose exec djangoapp python manager.py migrate

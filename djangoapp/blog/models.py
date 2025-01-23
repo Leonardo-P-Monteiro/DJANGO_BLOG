@@ -4,6 +4,8 @@ from utils.images import resize_image
 from django.contrib.auth.models import User
 from django_summernote.models import AbstractAttachment
 from django.urls import reverse
+from typing import ClassVar # Esse import foi realizado por mim e o Dato
+# na tentativa de resolver o problema de não sobrescrever o "objects" original.
 
 # Create your models here.
 
@@ -67,8 +69,7 @@ class Page(models.Model):
 class PostManager(models.Manager):
     
     def get_published(self):
-        return self.filter(is_publish = True)\
-        .get('-pk')
+        return self.filter(is_published = True).order_by('-pk')
 
 class Post(models.Model):
     class Meta:
@@ -76,7 +77,9 @@ class Post(models.Model):
         verbose_name_plural = 'Posts'
     
     #My custom object manager.
-    objects = PostManager()
+    objects2 = PostManager()
+    # objects: ClassVar[PostManager] = PostManager() # O python não conseguiu sobrescrever esse atributo 
+    #da classe então tivemos que cirar o objects2.
     
     title = models.CharField(max_length=65,)
     slug = models.SlugField(max_length=255, unique=True, default='', null=True,
