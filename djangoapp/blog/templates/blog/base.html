@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
   {% include 'blog/partials/_head.html' %}
+  {% block additional_head %}{% endblock additional_head %}
+
 </head>
 <body>
   <div class="blog-wrapper">
@@ -22,6 +24,7 @@
       {% include 'blog/partials/_footer.html' %}
     {% endif %}
       
+    
   </div>
 </body>
 </html>

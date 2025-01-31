@@ -28,8 +28,6 @@ class SiteSetupAdmin(admin.ModelAdmin):
     'show_menu', 'show_description', 'show_pagination', 'show_footer'
     inlines = MenuLinkInLine,
 
-
-
     def has_add_permission(self, request):
         return not SiteSetup.objects.exists()
         

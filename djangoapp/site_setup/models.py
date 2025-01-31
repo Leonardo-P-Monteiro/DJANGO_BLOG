@@ -52,7 +52,7 @@ class MenuLink(models.Model):
     
     text = models.CharField(max_length=50)
     url_or_path = models.CharField(max_length=2048)
-    new_tab = models.BooleanField(default=False)
+    new_tab = models.BooleanField(default=False) # Opens a new guide on the browser.
     site_setup = models.ForeignKey(
         SiteSetup,
         on_delete=models.CASCADE,

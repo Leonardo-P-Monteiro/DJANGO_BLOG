@@ -1,10 +1,9 @@
-
-
+- Class Based Views 
 
 ######################################################
 
 Django:
-    - função get_absolute_url:
+    - CodeMirror no Django:
         - Introdução sobre o assunto.
         - Em que contexto é utilizado(a)?
         - O que é e o que faz?
