@@ -110,27 +110,46 @@ class CreatedByList(PostListView):
 #         }
 #     )
 
-def category(request, slug):
-    posts = (Post.objects2.get_published()
-             .filter(category__slug=slug)
-             )
-    paginator = Paginator(posts, PER_PAGE)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
 
-    if len(page_obj) == 0:
-        raise Http404()
+class CategroyListView(PostListView):
 
-    page_title= f'{page_obj[0].category.name} - Category - ' 
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            category__slug=self.kwargs.get('slug', '')
+            )
 
-    return render(
-        request,
-        'blog/pages/index.html',
-        {
-            'page_obj': page_obj,
-            'page_title': page_title,
-        }
-    )
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+        page_title = f'{self.object_list[0].category.name}' #type: ignore
+        ' - Categoria - '
+        context.update({
+            'page_title':page_title
+        })
+
+        return context
+
+# def category(request, slug):
+#     posts = (Post.objects2.get_published()
+#              .filter(category__slug=slug)
+#              )
+#     paginator = Paginator(posts, PER_PAGE)
+#     page_number = request.GET.get("page")
+#     page_obj = paginator.get_page(page_number)
+
+#     if len(page_obj) == 0:
+#         raise Http404()
+
+#     page_title= f'{page_obj[0].category.name} - Category - ' 
+
+#     return render(
+#         request,
+#         'blog/pages/index.html',
+#         {
+#             'page_obj': page_obj,
+#             'page_title': page_title,
+#         }
+#     )
 
 def tag(request, slug):
     posts = (Post.objects2.get_published()
