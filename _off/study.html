@@ -21,9 +21,39 @@
         Last name: <input type="text" name="lname" value="Test"><br><br>
         <input type="submit" value="Submit">
     </form> 
-    <p>These are the values of each element in the form:</p>
 
+    <div id='div1'>
+        <p id='id2' onmouseover='change_over(this)' onmouseout='change_out(this)'>These are the values of each element in the form:</p>
+    </div>
+
+    <script>
+        function change_over(obj) {
+            obj.style.color = 'red'
+            document.getElementById('div1').style.backgroundColor = 'yellow'
+            obj.innerHTML = 'It changed.'
+        }
+
+        function change_out(obj) {
+            obj.style.color = 'black'
+            document.getElementById('div1').style.backgroundColor = 'white'
+            obj.innerHTML = 'These are the values of each element in the form:'
+        }
+    </script>
+
+    <h1 id='id1'> Click on the button to change my color!</h1>
+    <button onclick="document.getElementById('id1').style.color = 'blue'"> Change 
+        color. </button>
+    <button onclick="document.getElementById('id1').style.color = 'black'"> Change 
+        color. </button>
+
+    <button onclick="document.getElementById('id1').style.visibility='hidden'">
+        Hidden</button>
+    <button onclick="document.getElementById('id1').style.visibility='visible'">
+        Show</button>
+    
     <p id="demo"></p>  
+
+    <p id='test'></p>
     
     <script>
         document.write("This part of page is write into the tag script");
@@ -42,7 +72,8 @@
         for (let i = 0; i < x.length; i++) {
             text += x.elements[i].value + "<br>";
         }
-        document.getElementById("demo").innerHTML = text; 
+        document.getElementById("demo").innerHTML = text;
+        document.getElementById("test").innerHTML = Date(); 
     </script>
 </body>
 </html>

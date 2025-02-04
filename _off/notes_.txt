@@ -3,7 +3,7 @@
 ######################################################
 
 Django:
-    - CodeMirror no Django:
+    - Utilidades dos Mixins de MultipleObjectMixin e o que eles fornecem na ListView (Class Based View):
         - Introdução sobre o assunto.
         - Em que contexto é utilizado(a)?
         - O que é e o que faz?
@@ -16,7 +16,7 @@ Django:
         - Em que situações utilizá-la(o);
         - exemplo;
             - Explicação linha por linha e item por item da cada uma das linhas.
-        - métodos úteis, se aplicáveis;
+        - métodos e atributos úteis, se aplicáveis;
         - Link para a documentação oficial onde trata do assunto;
         - Mencione outras informações que sejam relevantes de forma concisa.
     - Exemplo completo envolvendo todos os conceitos trazidos nessa resposta.

@@ -1,52 +1,114 @@
+from typing import Any
 from django.core.paginator import Paginator
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from blog.models import Post, Page
 from django.db.models import Q
-from django.http import HttpRequest, Http404
+from django.http import HttpRequest, Http404, HttpResponse
 from django.contrib.auth.models import User
-
+from django.views.generic import ListView
 
 PER_PAGE = 9
 
-def index(request):
-    posts = Post.objects2.get_published() 
-    paginator = Paginator(posts, PER_PAGE)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/pages/index.html'
+    context_object_name = 'posts' # Essa variável é que vai conter no context
+    # a lista de objetos retornada pelo queryset.
+    ordering = '-pk' # Este atributo é herança de mixin. Na documentação você o
+    #verá em Mixins e não na explicação da ListView.
+    paginate_by = PER_PAGE
+    queryset = Post.objects2.get_published() # Aqui estamos definindo a queryset
+    # de busca dos dados que queremos. Mas também podemos fazer da forma que 
+    # deixei a baixo.
 
-    return render(
-        request,
-        'blog/pages/index.html',
-        {
-            'page_obj': page_obj,
-            'page_title': 'Home - ',
-        }
-    )
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(is_published = True) # Aqui nós estamos apenas
+    #     # adicionando um filtro na queryset original. Mas essa forma aqui é melhor
+    #     # para as situações em que é necessário fazer buscas dinâmicas, cujos 
+    #     # parâmetros variem. Usa aquela propriedade "queryset" e fornece uma
+    #     # queryset.
+    #     return queryset
 
-def created_by(request, author_pk):
-    posts = (Post.objects2.get_published()
-             .filter(created_by__pk = author_pk))
-    paginator = Paginator(posts, PER_PAGE)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    user = User.objects.filter(pk=author_pk).first()
+    def get_context_data(self, **kwargs): # Aqui 
+        context = super().get_context_data(**kwargs)
+        context['page_tititle'] = 'Home - '
 
-    if user == None:
-        raise Http404()
+        return context
+
+#EXEMPLO DO MESMO PROCESSO DA PostListView.
+# def index(request):
+#     posts = Post.objects2.get_published() 
+#     paginator = Paginator(posts, PER_PAGE)
+#     page_number = request.GET.get("page")
+#     page_obj = paginator.get_page(page_number)
+
+#     return render(
+#         request,
+#         'blog/pages/index.html',
+#         {
+#             'page_obj': page_obj,
+#             'page_title': 'Home - ',
+#         }
+#     )
+
+class CreatedByList(PostListView):
     
-    user_full_name = user.username
+    def get(self, request, *args, **kwargs):
+        
+        author_pk = self.kwargs.get('author_pk', '')
+        user = User.objects.filter(pk=author_pk).first() # Colocamos o "first" 
+        # para recebermos apenas um item, e não uma lista.
 
-    if user.first_name:
-        user_full_name = f'Posts de {user.first_name} {user.last_name} - ' 
+        if user is None:
+            return Http404()
 
-    return render(
-        request,
-        'blog/pages/index.html',
-        {
-            'page_obj': page_obj,
-            'page_title': user_full_name,
-        }
-    )
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        user = User.objects.filter(pk=self.kwargs.get('author_pk', '')).first()
+        user_full_name = user.username #type: ignore     
+        
+        if user.first_name: #type: ignore     
+            user_full_name = f'Post de {user.first_name} {user.last_name} - ' #type:ignore     
+        
+        context.update({'page_title':user_full_name})
+
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(created_by=self.kwargs.get('author_pk', ''))
+
+        return queryset
+
+# def created_by(request, author_pk):
+#     posts = (Post.objects2.get_published()
+#              .filter(created_by__pk = author_pk))
+#     paginator = Paginator(posts, PER_PAGE)
+#     page_number = request.GET.get("page")
+#     page_obj = paginator.get_page(page_number)
+#     user = User.objects.filter(pk=author_pk).first()
+
+#     if user == None:
+#         raise Http404()
+    
+#     user_full_name = user.username
+
+#     if user.first_name:
+#         user_full_name = f'Posts de {user.first_name} {user.last_name} - ' 
+
+#     return render(
+#         request,
+#         'blog/pages/index.html',
+#         {
+#             'page_obj': page_obj,
+#             'page_title': user_full_name,
+#         }
+#     )
 
 def category(request, slug):
     posts = (Post.objects2.get_published()
