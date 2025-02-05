@@ -1,9 +1,9 @@
-- Class Based Views 
+- DatailView - Class Based Views 
 
 ######################################################
 
 Django:
-    - Utilidades dos Mixins de MultipleObjectMixin e o que eles fornecem na ListView (Class Based View):
+    - DatailView - Class Based Views:
         - Introdução sobre o assunto.
         - Em que contexto é utilizado(a)?
         - O que é e o que faz?
