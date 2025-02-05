@@ -195,7 +195,7 @@ class TagListView(PostListView):
 #         }
 #     )
 
-class PageDatailView(DetailView):
+class PageDetailView(DetailView):
     model = Page
     template_name = 'blog/pages/page.html'
     slug_field = 'slug'
@@ -234,27 +234,47 @@ class PageDatailView(DetailView):
 #         }
 #     )
 
-def post(request, slug):
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/pages/post.html'
+    # slug_field = 'slug' Por padrão esse atributo já é preechido exatamente como está em nosso script. 
+    # por isso é bom já construir o model com o campo slug literalmente chamando ele de slug.
+    context_object_name = 'post'
 
-    post = (
-        Post.objects2.get_published()
-        .filter(slug=slug)
-        .first()
-             )
-    
-    if post is None:
-        raise Http404()
-    
-    page_title = f'{post.title} - '
 
-    return render(
-        request,
-        'blog/pages/post.html',
-        {
-            'post': post,
-            'page_title': page_title,
-        }
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        page_title = f'{post.title} - ' #type:ignore
+        context.update({
+            'page_title': page_title
+        })
+        return context
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(is_published=True)
+
+# def post(request, slug):
+
+#     post = (
+#         Post.objects2.get_published()
+#         .filter(slug=slug)
+#         .first()
+#              )
+    
+#     if post is None:
+#         raise Http404()
+    
+#     page_title = f'{post.title} - '
+
+#     return render(
+#         request,
+#         'blog/pages/post.html',
+#         {
+#             'post': post,
+#             'page_title': page_title,
+#         }
+#     )
 
 
 class SearchListView(PostListView):
