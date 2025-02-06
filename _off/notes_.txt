@@ -1,4 +1,5 @@
-- DatailView - Class Based Views 
+- django-axes
+- python-dotenv
 
 ######################################################
 
