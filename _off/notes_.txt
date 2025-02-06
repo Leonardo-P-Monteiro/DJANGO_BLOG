@@ -4,7 +4,7 @@
 ######################################################
 
 Django:
-    - DatailView - Class Based Views:
+    - django-axes:
         - Introdução sobre o assunto.
         - Em que contexto é utilizado(a)?
         - O que é e o que faz?
