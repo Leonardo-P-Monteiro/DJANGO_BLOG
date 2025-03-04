@@ -20,3 +20,4 @@ Technologies used:
 - CSS;
 - Python;
 - Docker;
+- PostgreSQL.
